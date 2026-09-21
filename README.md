@@ -3,8 +3,11 @@
   <h1>jevable-code</h1>
   <p><strong>Find the semantic decisions in a codebase that could become typed Jev questions.</strong></p>
 
+  <p><a href="https://altslate-labs.github.io/jevable-code/"><strong>altslate-labs.github.io/jevable-code</strong></a></p>
+
   <p>
     <a href="https://github.com/AltSlate-Labs/jevable-code/actions/workflows/validate.yml"><img src="https://github.com/AltSlate-Labs/jevable-code/actions/workflows/validate.yml/badge.svg" alt="validate" /></a>
+    <a href="https://altslate-labs.github.io/jevable-code/"><img src="https://img.shields.io/badge/website-live-14B8A6" alt="website" /></a>
     <img src="https://img.shields.io/badge/Agent%20Skill-SKILL.md-1b1f24" alt="Agent Skill" />
     <img src="https://img.shields.io/badge/Claude%20Code-compatible-F75858" alt="Claude Code compatible" />
     <img src="https://img.shields.io/badge/OpenAI%20Codex-compatible-FFA43D" alt="OpenAI Codex compatible" />
