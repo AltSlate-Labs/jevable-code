@@ -1,0 +1,8 @@
+{
+  "name": "jevable-code",
+  "version": "0.1.0",
+  "description": "Find code whose semantic decisions map to Jev Choice, Score, or Noul.",
+  "author": { "name": "AltSlate Labs" },
+  "homepage": "https://github.com/AltSlate-Labs/jevable-code",
+  "license": "MIT"
+}

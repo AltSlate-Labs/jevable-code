@@ -1,0 +1,11 @@
+{
+  "name": "jevable-code",
+  "version": "0.1.0",
+  "description": "Find code whose semantic decisions map to Jev Choice, Score, or Noul.",
+  "author": { "name": "AltSlate Labs" },
+  "skills": "./skills/",
+  "interface": {
+    "display_name": "Jevable Code",
+    "short_description": "Audit a repo for Jev Choice / Score / Noul opportunities"
+  }
+}

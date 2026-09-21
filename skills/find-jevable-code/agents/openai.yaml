@@ -1,0 +1,15 @@
+interface:
+  display_name: Find Jevable Code
+  short_description: Find code suited to Jev Choice, Score, or Noul
+  default_prompt: Use $find-jevable-code to audit this repository for decisions suited
+    to Jev Choice, Score, or Noul, and rank the opportunities with code evidence and
+    concrete question contracts.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
