@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>jevable-code — find code that maps to Jev Choice, Score, or Noul</title>
+<meta name="description" content="An agent skill for Claude Code and Codex that audits a repository for semantic decisions that could become typed Jev Choice, Score, or Noul questions." />
+<link rel="icon" href="assets/icon.svg" />
+<style>
+  :root {
+    --red: #F75858; --orange: #FFA43D; --yellow: #FFD400;
+    --bg: #ffffff; --bg-soft: #f6f8fa; --card: #ffffff;
+    --ink: #1b1f24; --muted: #5b6570; --border: #d8dee4;
+    --code-bg: #0d1117; --code-ink: #e6edf3;
+    --shadow: 0 1px 2px rgba(27,31,36,.06), 0 8px 24px rgba(27,31,36,.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1117; --bg-soft: #12171e; --card: #161b22;
+      --ink: #e6edf3; --muted: #9198a1; --border: #30363d;
+      --code-bg: #010409; --code-ink: #e6edf3;
+      --shadow: 0 1px 2px rgba(1,4,9,.4), 0 8px 24px rgba(1,4,9,.5);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+  header.site {
+    position: sticky; top: 0; z-index: 10;
+    backdrop-filter: saturate(180%) blur(10px);
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    border-bottom: 1px solid var(--border);
+  }
+  header.site .wrap { display: flex; align-items: center; gap: 12px; height: 60px; }
+  header.site img { width: 30px; height: 30px; }
+  header.site .name { font-weight: 700; letter-spacing: -.01em; }
+  header.site nav { margin-left: auto; display: flex; gap: 22px; align-items: center; font-size: 14px; }
+  header.site nav a { color: var(--muted); text-decoration: none; }
+  header.site nav a:hover { color: var(--ink); }
+  .ghbtn {
+    border: 1px solid var(--border); border-radius: 8px; padding: 7px 12px !important;
+    color: var(--ink) !important; font-weight: 600;
+  }
+  @media (max-width: 620px) { header.site nav a.hideable { display: none; } }
+
+  .hero { text-align: center; padding: 72px 0 40px; }
+  .hero .logo {
+    width: 92px; height: 92px; margin: 0 auto 22px;
+    display: grid; place-items: center;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 22px; box-shadow: var(--shadow);
+  }
+  .hero .logo img { width: 60px; height: 60px; }
+  .hero h1 { font-size: clamp(34px, 6vw, 52px); line-height: 1.05; margin: 0 0 14px; letter-spacing: -.03em; }
+  .hero h1 .grad {
+    background: linear-gradient(96deg, var(--red), var(--orange) 55%, var(--yellow));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p.lede { font-size: clamp(16px, 2.4vw, 20px); color: var(--muted); max-width: 620px; margin: 0 auto 26px; }
+  .cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 26px; }
+  .btn {
+    text-decoration: none; font-weight: 650; border-radius: 10px; padding: 12px 20px;
+    border: 1px solid var(--border); background: var(--card); color: var(--ink);
+    transition: transform .08s ease, box-shadow .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+  .btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .badges { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .badges img { height: 20px; }
+
+  section { padding: 44px 0; }
+  section h2 { font-size: clamp(22px, 3.5vw, 30px); letter-spacing: -.02em; margin: 0 0 6px; }
+  section .sub { color: var(--muted); margin: 0 0 28px; }
+
+  .prims { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 720px) { .prims { grid-template-columns: 1fr; } }
+  .prim { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; box-shadow: var(--shadow); }
+  .prim .dot { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; font-weight: 800; color: #1b1f24; margin-bottom: 12px; }
+  .prim.red .dot { background: var(--red); color: #fff; }
+  .prim.orange .dot { background: var(--orange); }
+  .prim.yellow .dot { background: var(--yellow); }
+  .prim h3 { margin: 0 0 4px; font-size: 18px; }
+  .prim p { margin: 0; color: var(--muted); font-size: 14.5px; }
+  .prim .use { display: block; margin-top: 10px; font-size: 13px; color: var(--muted); }
+
+  .diagram { background: var(--bg-soft); border: 1px solid var(--border); border-radius: 16px; padding: 24px; text-align: center; }
+  .diagram img { width: 100%; max-width: 860px; height: auto; }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 720px) { .cols { grid-template-columns: 1fr; } }
+  .panel { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; box-shadow: var(--shadow); }
+  .panel h3 { margin: 0 0 12px; display: flex; align-items: center; gap: 8px; font-size: 17px; }
+  .tag { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; color: #fff; }
+  .tag.a { background: var(--red); } .tag.b { background: var(--orange); color: #1b1f24; }
+  pre {
+    background: var(--code-bg); color: var(--code-ink); border-radius: 10px;
+    padding: 14px 16px; overflow-x: auto; margin: 0;
+    font: 13px/1.65 ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  pre .c { color: #7d8590; }
+  p.note { color: var(--muted); font-size: 14px; }
+  p.note code, li code { background: var(--bg-soft); border: 1px solid var(--border); border-radius: 5px; padding: 1px 5px; font-size: 12.5px; }
+
+  footer { border-top: 1px solid var(--border); padding: 30px 0 50px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <img src="assets/icon.svg" alt="" />
+    <span class="name">jevable-code</span>
+    <nav>
+      <a class="hideable" href="#primitives">Primitives</a>
+      <a class="hideable" href="#architecture">Architecture</a>
+      <a class="hideable" href="#install">Install</a>
+      <a class="ghbtn" href="https://github.com/AltSlate-Labs/jevable-code">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="logo"><img src="assets/icon.svg" alt="jevable-code icon" /></div>
+      <h1>Find the code that should be a<br /><span class="grad">typed Jev question</span></h1>
+      <p class="lede">
+        An agent skill for <strong>Claude Code</strong> and <strong>Codex</strong>. Point it at a
+        repository and it surfaces the semantic decisions — routing, triage, relevance,
+        escalation — that could become a <strong>Choice</strong>, <strong>Score</strong>, or
+        <strong>Noul</strong>. Ranked, source-grounded, read-only.
+      </p>
+      <div class="cta">
+        <a class="btn primary" href="#install">Install the skill</a>
+        <a class="btn" href="https://github.com/AltSlate-Labs/jevable-code">View on GitHub</a>
+      </div>
+      <div class="badges">
+        <img src="https://github.com/AltSlate-Labs/jevable-code/actions/workflows/validate.yml/badge.svg" alt="validate" />
+        <img src="https://img.shields.io/badge/Claude%20Code-compatible-F75858" alt="Claude Code compatible" />
+        <img src="https://img.shields.io/badge/OpenAI%20Codex-compatible-FFA43D" alt="Codex compatible" />
+        <img src="https://img.shields.io/badge/license-MIT-FFD400" alt="MIT" />
+      </div>
+    </div>
+  </section>
+
+  <section id="primitives">
+    <div class="wrap">
+      <h2>Three primitives it maps to</h2>
+      <p class="sub">A search lead is only jevable when the judgment is semantic, bounded, and worth measuring.</p>
+      <div class="prims">
+        <div class="prim red">
+          <div class="dot">C</div>
+          <h3>Choice</h3>
+          <p>Select one supplied option.</p>
+          <span class="use">dispatch · intent · categorization</span>
+        </div>
+        <div class="prim orange">
+          <div class="dot">S</div>
+          <h3>Score</h3>
+          <p>Locate content on ordered, described levels.</p>
+          <span class="use">severity · quality · relevance</span>
+        </div>
+        <div class="prim yellow">
+          <div class="dot">N</div>
+          <h3>Noul</h3>
+          <p>Evaluate one defined yes/no proposition.</p>
+          <span class="use">flags · matching · escalation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="architecture">
+    <div class="wrap">
+      <h2>How the audit works</h2>
+      <p class="sub">A seven-step read-only pipeline. Nothing runs, nothing is sent to Jev, no paid inference to discover candidates.</p>
+      <div class="diagram">
+        <img src="assets/architecture.svg" alt="find-jevable-code seven-step audit pipeline" />
+      </div>
+    </div>
+  </section>
+
+  <section id="install">
+    <div class="wrap">
+      <h2>One skill, both platforms</h2>
+      <p class="sub">Claude Code and Codex read the same <code>SKILL.md</code>. Pick your install.</p>
+      <div class="cols">
+        <div class="panel">
+          <h3><span class="tag a">Claude Code</span> copy into skills</h3>
+          <pre><span class="c"># clone and drop the skill in place</span>
+git clone https://github.com/AltSlate-Labs/jevable-code.git
+cp -r jevable-code/skills/find-jevable-code \
+      ~/.claude/skills/</pre>
+        </div>
+        <div class="panel">
+          <h3><span class="tag b">Codex</span> install the plugin</h3>
+          <pre><span class="c"># .codex-plugin/plugin.json ships in the repo</span>
+codex skill install \
+  https://github.com/AltSlate-Labs/jevable-code.git</pre>
+        </div>
+      </div>
+      <p class="note" style="margin-top:20px">Then, in a session with the skill available:</p>
+      <pre>Use <b>find-jevable-code</b> to audit this repository for decisions suited to
+Jev Choice, Score, or Noul, and rank the opportunities with code evidence
+and concrete question contracts.</pre>
+      <p class="note">See the <a href="https://github.com/AltSlate-Labs/jevable-code/tree/main/examples">worked example</a> — a toy keyword router and the audit report the skill produces for it.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>MIT © AltSlate Labs</span>
+    <span><a href="https://github.com/AltSlate-Labs/jevable-code">github.com/AltSlate-Labs/jevable-code</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

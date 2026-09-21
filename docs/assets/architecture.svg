@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif" role="img" aria-label="Architecture of the find-jevable-code skill">
+  <defs>
+    <style>
+      .bg   { fill: #ffffff; }
+      .ink  { fill: #1b1f24; }
+      .muted{ fill: #5b6570; }
+      .card { fill: #f6f8fa; stroke: #d0d7de; stroke-width: 1.5; }
+      .accent { fill: #F75858; }
+      .accent2{ fill: #FFA43D; }
+      .accent3{ fill: #FFD400; }
+      .flow { stroke: #8b949e; stroke-width: 2; fill: none; }
+      .refbox { fill: #eef2f6; stroke: #d0d7de; stroke-width: 1.25; stroke-dasharray: 4 3; }
+      @media (prefers-color-scheme: dark) {
+        .bg    { fill: #0d1117; }
+        .ink   { fill: #e6edf3; }
+        .muted { fill: #9198a1; }
+        .card  { fill: #161b22; stroke: #30363d; }
+        .refbox{ fill: #12171e; stroke: #30363d; }
+        .flow  { stroke: #6e7681; }
+      }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8b949e"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="960" height="540"/>
+
+  <!-- Title -->
+  <text class="ink" x="48" y="52" font-size="27" font-weight="700">find-jevable-code</text>
+  <text class="muted" x="48" y="78" font-size="15">Read-only audit pipeline — surface code whose semantic decisions map to Jev Choice · Score · Noul</text>
+
+  <!-- INPUT -->
+  <g>
+    <rect class="card" x="48" y="118" width="150" height="300" rx="12"/>
+    <text class="ink" x="123" y="148" font-size="15" font-weight="700" text-anchor="middle">Repository</text>
+    <text class="muted" x="123" y="172" font-size="12" text-anchor="middle">source · prompts</text>
+    <text class="muted" x="123" y="190" font-size="12" text-anchor="middle">tests · config</text>
+    <line class="flow" x1="123" y1="212" x2="123" y2="240" stroke-dasharray="3 3"/>
+    <text class="muted" x="123" y="266" font-size="11" text-anchor="middle" font-style="italic">read-only</text>
+    <text class="muted" x="123" y="284" font-size="11" text-anchor="middle" font-style="italic">no exec · no</text>
+    <text class="muted" x="123" y="300" font-size="11" text-anchor="middle" font-style="italic">paid inference</text>
+  </g>
+
+  <!-- PIPELINE STEPS (2 columns x rows) -->
+  <!-- Step template positions -->
+  <g font-size="13">
+    <!-- 1 Scope -->
+    <rect class="card" x="248" y="118" width="196" height="58" rx="10"/>
+    <circle class="accent3" cx="272" cy="147" r="11"/><text class="ink" x="272" y="151" font-size="12" font-weight="700" text-anchor="middle">1</text>
+    <text class="ink" x="294" y="143" font-weight="700">Establish scope</text>
+    <text class="muted" x="294" y="162" font-size="11">map langs, boundaries, exclusions</text>
+
+    <!-- 2 Discover -->
+    <rect class="card" x="248" y="188" width="196" height="58" rx="10"/>
+    <circle class="accent3" cx="272" cy="217" r="11"/><text class="ink" x="272" y="221" font-size="12" font-weight="700" text-anchor="middle">2</text>
+    <text class="ink" x="294" y="213" font-weight="700">Discover &amp; trace</text>
+    <text class="muted" x="294" y="232" font-size="11">producers ↔ consumers</text>
+
+    <!-- 3 Gates -->
+    <rect class="card" x="248" y="258" width="196" height="58" rx="10"/>
+    <circle class="accent2" cx="272" cy="287" r="11"/><text class="ink" x="272" y="291" font-size="12" font-weight="700" text-anchor="middle">3</text>
+    <text class="ink" x="294" y="283" font-weight="700">Suitability gates</text>
+    <text class="muted" x="294" y="302" font-size="11">semantic · bounded · focused</text>
+
+    <!-- 4 Contract -->
+    <rect class="card" x="248" y="328" width="196" height="58" rx="10"/>
+    <circle class="accent2" cx="272" cy="357" r="11"/><text class="ink" x="272" y="361" font-size="12" font-weight="700" text-anchor="middle">4</text>
+    <text class="ink" x="294" y="353" font-weight="700">Decision contract</text>
+    <text class="muted" x="294" y="372" font-size="11">boundary · state · question</text>
+
+    <!-- 5 Compose -->
+    <rect class="card" x="464" y="188" width="196" height="58" rx="10"/>
+    <circle class="accent" cx="488" cy="217" r="11"/><text class="ink" x="488" y="221" font-size="12" font-weight="700" text-anchor="middle">5</text>
+    <text class="ink" x="510" y="213" font-weight="700">Analyze composition</text>
+    <text class="muted" x="510" y="232" font-size="11">batch vs. true dependency</text>
+
+    <!-- 6 Prioritize -->
+    <rect class="card" x="464" y="258" width="196" height="58" rx="10"/>
+    <circle class="accent" cx="488" cy="287" r="11"/><text class="ink" x="488" y="291" font-size="12" font-weight="700" text-anchor="middle">6</text>
+    <text class="ink" x="510" y="283" font-weight="700">Prioritize &amp; pilot</text>
+    <text class="muted" x="510" y="302" font-size="11">rank by value · one pilot plan</text>
+
+    <!-- 7 Deliver -->
+    <rect class="card" x="464" y="328" width="196" height="58" rx="10"/>
+    <circle class="accent" cx="488" cy="357" r="11"/><text class="ink" x="488" y="361" font-size="12" font-weight="700" text-anchor="middle">7</text>
+    <text class="ink" x="510" y="353" font-weight="700">Deliver report</text>
+    <text class="muted" x="510" y="372" font-size="11">ranked findings · contracts · limits</text>
+  </g>
+
+  <!-- flows between steps -->
+  <path class="flow" marker-end="url(#arrow)" d="M198 268 H244"/>
+  <path class="flow" marker-end="url(#arrow)" d="M346 176 V186"/>
+  <path class="flow" marker-end="url(#arrow)" d="M346 246 V256"/>
+  <path class="flow" marker-end="url(#arrow)" d="M346 316 V326"/>
+  <path class="flow" marker-end="url(#arrow)" d="M444 357 C 456 357, 452 217, 462 217"/>
+  <path class="flow" marker-end="url(#arrow)" d="M562 246 V256"/>
+  <path class="flow" marker-end="url(#arrow)" d="M562 316 V326"/>
+
+  <!-- OUTPUT: three primitives -->
+  <g>
+    <rect class="card" x="700" y="188" width="212" height="198" rx="12"/>
+    <text class="ink" x="806" y="216" font-size="14" font-weight="700" text-anchor="middle">Typed decision</text>
+    <g font-size="13" font-weight="700">
+      <rect class="accent" x="722" y="232" width="168" height="40" rx="8"/>
+      <text x="738" y="257" fill="#ffffff">Choice</text>
+      <text x="878" y="257" fill="#ffffff" text-anchor="end" font-weight="400" font-size="11">pick one option</text>
+      <rect class="accent2" x="722" y="280" width="168" height="40" rx="8"/>
+      <text x="738" y="305" fill="#1b1f24">Score</text>
+      <text x="878" y="305" fill="#1b1f24" text-anchor="end" font-weight="400" font-size="11">ordered levels</text>
+      <rect class="accent3" x="722" y="328" width="168" height="40" rx="8"/>
+      <text x="738" y="353" fill="#1b1f24">Noul</text>
+      <text x="878" y="353" fill="#1b1f24" text-anchor="end" font-weight="400" font-size="11">yes/no proposition</text>
+    </g>
+  </g>
+  <path class="flow" marker-end="url(#arrow)" d="M660 287 H696"/>
+
+  <!-- REFERENCES feeding the pipeline -->
+  <g font-size="11">
+    <rect class="refbox" x="248" y="448" width="412" height="58" rx="10"/>
+    <text class="muted" x="454" y="470" font-size="12" font-weight="700" text-anchor="middle">Bundled references (loaded on demand)</text>
+    <text class="muted" x="454" y="491" text-anchor="middle">jev-contract.md · discovery.md · report-template.md</text>
+  </g>
+  <path class="flow" stroke-dasharray="4 4" d="M300 448 V392"/>
+  <path class="flow" stroke-dasharray="4 4" d="M454 448 V392"/>
+  <path class="flow" stroke-dasharray="4 4" d="M610 448 V392"/>
+
+  <text class="muted" x="806" y="472" font-size="11" text-anchor="middle">Ranking &amp; joint constraints</text>
+  <text class="muted" x="806" y="490" font-size="11" text-anchor="middle">stay in application code</text>
+</svg>
